@@ -142,6 +142,7 @@
   .icon-btn:hover{ background:var(--pink); border-color:var(--pink); transform:translateY(-1px); }
   .icon-btn:active{ transform:scale(0.94); }
   .icon-btn svg{ width:18px; height:18px; }
+  .icon-btn.zoom-btn{ font-size:18px; font-weight:700; font-family:inherit; }
 
   .out-caption{ margin-top:14px; font-size:11px; color:#7d8177; text-align:center; max-width:340px; line-height:1.6; }
   .out-caption b{ color:#a9c3ac; }
@@ -221,6 +222,8 @@
         <div class="canvas-wrap">
           <canvas id="idCanvas"></canvas>
           <div class="actions">
+            <button class="icon-btn zoom-btn" id="zoomOutBtn" title="Zoom out" aria-label="Zoom out">−</button>
+            <button class="icon-btn zoom-btn" id="zoomInBtn" title="Zoom in" aria-label="Zoom in">+</button>
             <button class="icon-btn" id="downloadBtn" title="Download PNG" aria-label="Download PNG">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="M7 10l5 5 5-5"/><path d="M5 21h14"/></svg>
             </button>
@@ -266,6 +269,10 @@
 
   let bg = null;       // template image
   let userImg = null;  // uploaded photo
+  let photoZoom = 1;
+  const PHOTO_ZOOM_STEP = 0.15;
+  const PHOTO_ZOOM_MIN = 0.75;
+  const PHOTO_ZOOM_MAX = 2.5;
 
   function loadImage(src){
     return new Promise((resolve, reject)=>{
@@ -360,8 +367,9 @@
       ctx.clip();
       const iw = userImg.naturalWidth || userImg.width;
       const ih = userImg.naturalHeight || userImg.height;
-      const scale = Math.max((PHOTO.r*2)/iw, (PHOTO.r*2)/ih);
-      const dw = iw*scale, dh = ih*scale;
+      const fitScale = Math.max((PHOTO.r*2)/iw, (PHOTO.r*2)/ih);
+      const drawScale = fitScale * photoZoom;
+      const dw = iw*drawScale, dh = ih*drawScale;
       ctx.drawImage(userImg, PHOTO.cx-dw/2, PHOTO.cy-dh/2, dw, dh);
       ctx.restore();
     }
@@ -456,6 +464,7 @@
         throw new Error('Image failed to decode.');
       }
       userImg = im;
+      photoZoom = 1;
       dropzone.classList.add('has-img');
       dropText.textContent = '✓ ' + (file.name.length>26 ? file.name.slice(0,23)+'…' : file.name);
       draw();
@@ -472,6 +481,15 @@
   dropzone.addEventListener('drop',(e)=>{ const f=e.dataTransfer.files&&e.dataTransfer.files[0]; if(f) handleFile(f); });
 
   [nameInput, cityInput].forEach(inp=> inp.addEventListener('input', draw));
+
+  function setPhotoZoom(delta){
+    photoZoom = Math.min(PHOTO_ZOOM_MAX, Math.max(PHOTO_ZOOM_MIN, photoZoom + delta));
+    draw();
+    showToast(`Zoom ${photoZoom.toFixed(1)}x`);
+  }
+
+  document.getElementById('zoomOutBtn').addEventListener('click', ()=> setPhotoZoom(-PHOTO_ZOOM_STEP));
+  document.getElementById('zoomInBtn').addEventListener('click', ()=> setPhotoZoom(PHOTO_ZOOM_STEP));
 
   function canvasToBlob(){ return new Promise(res => canvas.toBlob(res,'image/png',0.95)); }
   function fileNameFor(){
