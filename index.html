@@ -49,10 +49,31 @@
   .brand{ display:flex; align-items:center; gap:0; }
   .brand img#logoImg{ height:64px; display:block; }
   .brand .sr-only{ position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0; }
+  .topbar-right{
+    display:flex;
+    align-items:center;
+    gap:12px;
+  }
   .topbar .tag{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
     font-size:11px; letter-spacing:0.12em; text-transform:uppercase;
-    border:1px solid rgba(255,255,255,0.25); color:#ffffff;
-    padding:6px 12px; border-radius:999px;
+    border:1px solid rgba(255,255,255,0.45); color:#ffffff;
+    padding:8px 14px; border-radius:999px;
+    text-decoration:none;
+    background:rgba(255,255,255,0.08);
+    transition: background .2s ease, transform .2s ease;
+  }
+  .topbar .tag::after{
+    content:'→';
+    margin-left:8px;
+    font-size:12px;
+    opacity:0.85;
+  }
+  .topbar .tag:hover{
+    background:rgba(255,255,255,0.16);
+    transform:translateY(-1px);
   }
 
   .hero{ max-width:1180px; margin:0 auto; padding: 52px 28px 10px; }
@@ -197,7 +218,9 @@
     <img id="logoImg" src="logo.png" alt="Hacker House Goa 2026 logo">
     <span class="sr-only">Hacker House Goa 2026</span>
   </div>
-  <span class="tag">#FrameInGoa</span>
+  <div class="topbar-right">
+    <a class="tag" href="https://x.com/JivanJamadar/status/2086912017299058937" target="_blank" rel="noreferrer noopener">#FrameInGoa</a>
+  </div>
 </header>
 
 <section class="hero">
@@ -442,6 +465,7 @@
       ctx.fillStyle = PILL_TEXT;
       ctx.fillText(label, PILL.cx, PILL.cy + 9);
     }
+
   }
 
   // ---------- boot: load the template once, then draw ----------
