@@ -1,0 +1,18 @@
+<svg viewBox="0 0 640 140" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Hacker House logo">
+  <defs>
+    <linearGradient id="logoGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#FFE051"/>
+      <stop offset="100%" stop-color="#F3A400"/>
+    </linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="5" stdDeviation="6" flood-color="#0B261A" flood-opacity="0.35"/>
+    </filter>
+  </defs>
+  <rect width="100%" height="100%" fill="none"/>
+  <text x="50%" y="80" text-anchor="middle" font-family="Fraunces, serif" font-weight="900" font-size="72" fill="url(#logoGrad)" stroke="#0B261A" stroke-width="3" paint-order="stroke fill" filter="url(#shadow)">
+    HACKER HOUSE
+  </text>
+  <text x="58%" y="48" text-anchor="middle" font-family="Devanagari MT, Mukta, sans-serif" font-weight="900" font-size="44" fill="#FF2F8F" stroke="#C30063" stroke-width="1.2">
+    गोचा
+  </text>
+</svg>
