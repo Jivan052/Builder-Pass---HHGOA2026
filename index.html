@@ -8,6 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700;9..144,900&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Anton&display=swap" rel="stylesheet">
 <style>
   :root{
     --cream:#fee101;
@@ -39,7 +40,7 @@
   header.topbar{
     position:sticky; top:0; z-index:50;
     display:flex; align-items:center; justify-content:space-between;
-    padding: 14px 32px;
+    padding: 14px 28px;
     background: #0b6839;
     color: var(--cream);
     backdrop-filter: blur(10px);
@@ -77,7 +78,7 @@
 
   .hero{ max-width:1180px; margin:0 auto; padding: 52px 28px 10px; }
   .hero .eyebrow{
-    display:inline-flex; align-items:center; gap:8px;
+    display:flex; align-items:center; gap:8px; flex-wrap:wrap;
     font-size:12px; letter-spacing:0.16em; text-transform:uppercase;
     color:var(--gold); font-weight:700; margin-bottom:18px;
   }
@@ -86,7 +87,7 @@
   .hero .eyebrow .feather-style{
     background:#0b6839;
     color:var(--cream);
-    font-family:'Fraunces', serif;
+    font-family: 'Anton', sans-serif;
     font-size:14px;
     font-weight:900;
     letter-spacing:0.2em;
@@ -141,6 +142,8 @@
     padding:26px 24px 30px;
     display:grid; grid-template-columns: minmax(280px,420px) 1fr; gap:30px; align-items:start;
   }
+  /* allow grid children to shrink on narrow viewports */
+  .panel .body > * { min-width: 0; }
   @media (max-width: 860px){ .panel .body{ grid-template-columns: 1fr; } }
 
   .field{ margin-bottom:18px; }
@@ -181,6 +184,8 @@
     box-shadow: 0 14px 34px -10px rgba(0,0,0,0.55);
     background:var(--cream);
   }
+  /* make the canvas container fluid and allow it to shrink on small devices */
+  .canvas-wrap{ flex:0 1 auto; min-width:0; }
   #idCanvas{ width:100%; height:auto; display:block; }
 
   .actions{
@@ -201,6 +206,22 @@
 
   .out-caption{ margin-top:14px; font-size:11px; color:#7d8177; text-align:center; max-width:340px; line-height:1.6; }
   .out-caption b{ color:#a9c3ac; }
+
+  /* Small-device adjustments to prevent layout breakage */
+  @media (max-width:480px){
+    .topbar{ padding:10px 14px; }
+    .brand img#logoImg{ height:48px; }
+    .hero{ padding:24px 16px; }
+    .hero h1{ font-size:clamp(28px, 6vw, 44px); }
+    .panel .body{ padding:16px; gap:18px; }
+    .controls{ order:1; }
+    .output{ order:2; width:100%; display:flex; justify-content:center; }
+    .canvas-wrap{ max-width:360px; border-radius:10px; }
+    .actions{ right:8px; top:8px; gap:6px; }
+    .icon-btn{ width:38px; height:38px; }
+    .out-caption{ max-width:100%; padding:0 8px; }
+    .panel{ margin:0 8px; }
+  }
 
   .toast{
     position:fixed; left:50%; bottom:26px; transform:translate(-50%, 20px);
