@@ -27,11 +27,10 @@
   *{box-sizing:border-box;}
   html,body{margin:0;padding:0;}
   body{
-    background: linear-gradient(135deg, rgb(254,225,1) 0%, rgb(11,104,57) 100%);
+    background: url("Sun rise.png") center/cover no-repeat;
+    background-size: cover;
     color:var(--cream);
     font-family:'JetBrains Mono', monospace; -webkit-font-smoothing:antialiased;
-    background-image: radial-gradient(circle at 1px 1px, rgba(255,224,81,0.08) 1px, transparent 0);
-    background-size: 24px 24px;
   }
   ::selection{ background:var(--green-bright); color:var(--cream); }
   a{color:inherit;}
@@ -80,7 +79,7 @@
   .hero .eyebrow{
     display:inline-flex; align-items:center; gap:8px;
     font-size:12px; letter-spacing:0.16em; text-transform:uppercase;
-    color:var(--green); font-weight:700; margin-bottom:18px;
+    color:var(--gold); font-weight:700; margin-bottom:18px;
   }
   .hero .eyebrow::before{ content:"✦"; color:var(--green);
   }
@@ -108,11 +107,17 @@
     font-weight:700; letter-spacing:-0.02em; max-width:18ch;
     text-shadow: 0 2px 10px rgba(0,0,0,0.18);
   }
-  .hero h1 .pink-text{ color:var(--pink); }
-  .hero h1 em{ font-style:italic; color:var(--pink);
+  .hero h1 .initial-green{
+    background: linear-gradient(90deg, #ffffff 0%, var(--green-bright) 65%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    font-weight:700;
+  }
+  .hero h1 em{ font-style:italic; color:var(--green-bright);
     font-weight:800;
   }
-  .hero p.lead{ max-width:52ch; font-size:15px; line-height:1.65; color:var(--ink); opacity:0.78; margin:0 0 6px; }
+  .hero p.lead{ max-width:52ch; font-size:15px; line-height:1.65; color:#ffffff; opacity:0.92; margin:0 0 6px; }
 
   .stage{ max-width:1180px; margin:0 auto; padding: 34px 28px 80px; }
 
@@ -134,7 +139,7 @@
 
   .panel .body{
     padding:26px 24px 30px;
-    display:grid; grid-template-columns: 300px 1fr; gap:30px; align-items:start;
+    display:grid; grid-template-columns: minmax(280px,420px) 1fr; gap:30px; align-items:start;
   }
   @media (max-width: 860px){ .panel .body{ grid-template-columns: 1fr; } }
 
@@ -158,7 +163,7 @@
   .drop:hover, .drop.drag{ border-color:var(--pink); background:#171712; }
   .drop input{ position:absolute; inset:0; opacity:0; cursor:pointer; }
   .drop .icon{ font-size:20px; margin-bottom:6px; }
-  .drop .t1{ font-size:12.5px; color:var(--cream); }
+  .drop .t1{ font-size:12.5px; color:#ffffff; }
   .drop .t2{ font-size:10.5px; color:#7d8177; margin-top:4px; }
   .drop.has-img .t1{ color:var(--pink); }
 
@@ -166,8 +171,12 @@
   .prompt-line .p{ color:var(--green-bright); }
 
   .output{ display:flex; flex-direction:column; align-items:center; }
+  @media (min-width:1200px){
+    .panel .body{ grid-template-columns: minmax(320px,440px) minmax(320px,620px); }
+    .output{ align-items:center; justify-content:center; }
+  }
   .canvas-wrap{
-    position:relative; width:100%; max-width:380px;
+    position:relative; width:100%; max-width:420px; flex:0 0 auto;
     border-radius:12px; overflow:hidden;
     box-shadow: 0 14px 34px -10px rgba(0,0,0,0.55);
     background:var(--cream);
@@ -225,7 +234,7 @@
 
 <section class="hero">
   <span class="eyebrow">HHGOA 2026 Builder Pass creator from Team <span class="feather-style">Black Feather</span>.</span>
-  <h1 class="display"><span class="pink-text">Turn your photo into a</span> <em>Builder Pass.</em></h1>
+  <h1 class="display"><span class="initial-green">Turn your photo into a</span> <em>Builder Pass.</em></h1>
   <p class="lead">Upload a photo, add your name and city — watch it drop straight into the HH Goa 2026 card below. Download it or send it to X.</p>
 </section>
 
